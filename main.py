@@ -1,5 +1,5 @@
 import tkinter
-
+from tkinter import ttk
 
 #### window creation start ####
 window = tkinter.Tk()
@@ -14,8 +14,9 @@ class Playerparams():
         self.health = health
         self.damage = damage
         self.weapon = weapon
-        
-
+    
+    def __str__(self):
+        return f'{self.weapon}'
 
 class Enemparams():
 
@@ -63,9 +64,33 @@ def settingspressed():
             # confirmlabel = tkinter.Label()
         except ValueError:
             pass # needs label
-
     updatehealthb = tkinter.Button(settingwindow, text="Set Health", command=update_health)
     updatehealthb.place(x=300, y=150)
+   
+    #### geeks4geeks ####
+    
+    def show():
+        selected_weapon = cb.get()
+        player.weapon = selected_weapon  # Update the weapon attribute
+        lbl.config(text=f"Weapon set to: {selected_weapon}")  # Update the label
+        print(player.weapon)
+
+    a = ["None", "Sword", "Gun"]
+
+
+    cb = ttk.Combobox(settingwindow, values=a)
+    cb.set("None")
+    cb.place(x=151, y=250)
+    confirmweap = tkinter.Button(settingwindow, text="Set Weapon", command=show)
+    confirmweap.place(x=300, y=250)
+# Label to show selected value  
+    lbl = tkinter.Label(settingwindow, text="")
+    lbl.place(x=150, y=285)
+    
+    
+    #### geeks4geeks ####
+
+
     #### health setting handler ####
 
     #### damage setting handler ####
