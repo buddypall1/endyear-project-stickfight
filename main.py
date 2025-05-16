@@ -41,10 +41,18 @@ enemy = Enemparams(100, 5, 5, 'None')
 def exitpressed():
     window.destroy()
 
+def playpressed():
+    global player, enemy
+    playwindow = tkinter.Tk()
+    playwindow.title('TmEsg')
+    playwindow.geometry('950x700')
 
+   # playersprite = tkinter.PhotoImage(file = "Media\playerplaceholder.png")
+    #playersprlabel = tkinter.Label(playwindow, image=playersprite)
+   # playersprlabel.place(x=200, y= 150)
 
 def settingspressed():
-    global player
+    global player, enemy
 
     settingwindow = tkinter.Tk()
     settingwindow.title("Settings")
@@ -220,7 +228,7 @@ def settingspressed():
 logo = tkinter.PhotoImage(file="Media/logo.png")  
 logolabel = tkinter.Label(window, image=logo)
 logolabel.place(x=0, y=0)  # initial creation, will be overidden later 
-playbutton = tkinter.Button(window, text= "Play", background='grey', height= 2, width= 21)
+playbutton = tkinter.Button(window, text= "Play", background='grey', height= 2, width= 21, command=playpressed)
 settingsbutton = tkinter.Button(window, text= "Settings", background='grey', height= 2, width= 21, command = settingspressed)
 exitbutton = tkinter.Button(window, text='Exit', background='grey', height= 2, width= 21, command= exitpressed)
 
