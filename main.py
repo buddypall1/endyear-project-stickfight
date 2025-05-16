@@ -30,6 +30,9 @@ gamedata = loadData()
 
 #### window creation start ####
 window = tkinter.Tk()
+def disable_event():
+   pass
+window.protocol("WM_DELETE_WINDOW", disable_event)
 window.title("TmEsg")
 window.resizable(0, 0)
 window.geometry("950x700")
@@ -69,18 +72,22 @@ def exitpressed():
 
 def playpressed():
     global player, enemy
-    playwindow = tkinter.Tk()
+    playwindow = tkinter.Toplevel(window)
+    def disable_event():
+        pass
+    playwindow.protocol("WM_DELETE_WINDOW", disable_event)
     playwindow.title('TmEsg')
     playwindow.geometry('950x700')
 
-   # playersprite = tkinter.PhotoImage(file = "Media\playerplaceholder.png")
-    #playersprlabel = tkinter.Label(playwindow, image=playersprite)
-   # playersprlabel.place(x=200, y= 150)
+    playersprite = tkinter.PhotoImage(file = "Media\playerplaceholder.png")
+    playersprlabel = tkinter.Label(playwindow, image=playersprite)
+    playersprlabel.place(x=200, y= 150)
+    playersprlabel.image = playersprite
 
 def settingspressed():
     global player, enemy
 
-    settingwindow = tkinter.Tk()
+    settingwindow = tkinter.Toplevel(window)
     settingwindow.title("Settings")
     settingwindow.resizable(0, 0)
     settingwindow.geometry("650x650")
