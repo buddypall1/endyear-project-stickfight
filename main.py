@@ -19,7 +19,8 @@ def loadData():
         "Enemweap" : "None",
         "Enemrng" : 50
         }
-    
+
+
 gamedata = loadData()
 
 # ENEMY RNG TABLE DEFAULTS: 50
@@ -53,9 +54,10 @@ class Enemparams():
         self.weapon = weapon
 
 
-#### default values, should be written differently using saved settings once that's implemented ####
-player = Playerparams(gamedata['Playerhealth'], 5, 'None')
-enemy = Enemparams(100, 5, 50, 'None')
+#### player and enemy obj creation #### 
+
+player = Playerparams(gamedata['Playerhealth'], gamedata['Playerdmg'], gamedata['Playerweap'])
+enemy = Enemparams(gamedata['Enemhealth'], gamedata['Enemdmg'], gamedata['Enemrng'], gamedata['Enemweap'])
 
 
 
@@ -179,6 +181,7 @@ def settingspressed():
                 tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! Range: 1-100')
             else:
                 enemy.health = new_healthEnemy
+                tkinter.messagebox.showinfo('Success!', 'Health Changed Successfully!')
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatehealthenemb = tkinter.Button(settingwindow, text="Set Health", command=updateEnem_health)
@@ -191,6 +194,7 @@ def settingspressed():
     damageEnemy_entry = tkinter.Entry(settingwindow)
     damageEnemy_entry.place(x=160, y= 390)
     damageEnemy_entry.insert(0, str(enemy.damage))
+    
     def updatedEnemamage():
         try:
             newEnemy_damage = int(damageEnemy_entry.get())
@@ -198,6 +202,7 @@ def settingspressed():
                 tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! range: 1-10')
             else:
                 enemy.damage = newEnemy_damage
+                tkinter.messagebox.showinfo('Success!', 'Damage Changed Successfully!')
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedamageb = tkinter.Button(settingwindow, text="Set Damage", command= updatedEnemamage)
@@ -238,6 +243,7 @@ def settingspressed():
                 tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! range: 1-100')
             else:
                 enemy.rng = newEnemy_rng
+                tkinter.messagebox.showinfo('Success!', 'RNG Changed Successfully!')
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedrngb = tkinter.Button(settingwindow, text="Set RNG", command= rngEnem)
