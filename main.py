@@ -1,12 +1,29 @@
 import tkinter
 from tkinter import ttk
 import tkinter.messagebox
+import pickle
 
-
+saveloc = "Data/game_data.dat"
 # ENEMY RNG TABLE DEFAULTS: 50
 # For attack: This will be default when nothing is needed
 # When below half health: it will heal if RNG rolls below selected RNG value, will attack if above, which means higher RNG = harder fight. (100 would mean 100% chance, 0 would mean 0%)
-
+def loadData():
+    try:
+        with open(saveloc, 'rb') as file:
+            data = pickle.load(file)
+        return data
+    except (FileNotFoundError, EOFError, pickle.UnpicklingError, ImportError, MemoryError):
+        tkinter.messagebox.showerror("Data Error", "Couldn't load save data, reverting to defaults.")
+        return {
+        "Playerhealth" : 100,
+        "Playerdmg" : 5,
+        "Playerweap" : "None",
+        "Enemhealth" : 100,
+        "Enemdmg" : 5,
+        "Enemweap" : "None",
+        "Enemrng" : 50
+        }
+    
 
 #### window creation start ####
 window = tkinter.Tk()
@@ -23,7 +40,7 @@ class Playerparams():
         self.weapon = weapon
     
     def __str__(self):
-        return f'{self.weapon}'
+        return f'{self.weapon} {self.damage} {self.weapon}'
 
 class Enemparams():
 
@@ -36,10 +53,15 @@ class Enemparams():
 
 #### default values, should be written differently using saved settings once that's implemented ####
 player = Playerparams(100, 5, 'None')
-enemy = Enemparams(100, 5, 5, 'None')
+enemy = Enemparams(100, 5, 50, 'None')
+
+
+
 #### UI buttons handling ####
 def exitpressed():
     window.destroy()
+    savedata()
+
 
 def playpressed():
     global player, enemy
@@ -257,4 +279,23 @@ center_item(settingsbutton, 950, 440)
 center_item(exitbutton, 950, 540)
 
 #### handling of centering ####
+
+def savedata():
+    data = {
+        "Playerhealth" : player.health,
+        "Playerdmg" : player.damage,
+        "Playerweap" : player.weapon,
+        "Enemhealth" : enemy.health,
+        "Enemdmg" : enemy.damage,
+        "Enemweap" : enemy.weapon,
+        "Enemrng" : enemy.rng
+    }
+    with open(saveloc, "wb") as file:
+        pickle.dump(data, file)
+
+
+
+
+loadData()
+
 window.mainloop()
