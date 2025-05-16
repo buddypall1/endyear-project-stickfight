@@ -71,7 +71,7 @@ def settingspressed():
         try:
             new_health = int(health_entry.get())
             if new_health <= 0 or new_health > 100:
-                tkinter.messagebox.showerror('Out of range', 'You inputted a out of range number')
+                tkinter.messagebox.showerror('Out of range', 'You inputted a out of range number! Range: 1-100')
             else:
                 player.health = new_health
                 tkinter.messagebox.showinfo('Success!', 'Health Changed Successfully!')
@@ -116,10 +116,13 @@ def settingspressed():
     def updatedamage():
         try:
             new_damage = int(damage_entry.get())
-            player.damage = new_damage
-            # confirmlabel = tkinter.Label()
+            if new_damage <= 0 or new_damage > 10:
+                tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! range: 1-10')
+            else:
+                player.damage = new_damage
+                tkinter.messagebox.showinfo('Success!', 'Damage Changed Successfully!')
         except ValueError:
-            pass # needs label
+            tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedamageb = tkinter.Button(settingwindow, text="Set Damage", command= updatedamage)
     updatedamageb.place(x=300,y= 200)
 
@@ -137,10 +140,12 @@ def settingspressed():
     def updateEnem_health():
         try:
             new_healthEnemy = int(healthEnemy_entry.get())
-            enemy.health = new_healthEnemy
-            # confirmlabel = tkinter.Label()
+            if new_healthEnemy <= 0 or new_healthEnemy > 100:
+                tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! Range: 1-100')
+            else:
+                enemy.health = new_healthEnemy
         except ValueError:
-            pass # needs label
+            tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatehealthb = tkinter.Button(settingwindow, text="Set Health", command=updateEnem_health)
     updatehealthb.place(x=300, y=339)
 
@@ -154,10 +159,12 @@ def settingspressed():
     def updatedEnemamage():
         try:
             newEnemy_damage = int(damageEnemy_entry.get())
-            enemy.damage = newEnemy_damage
-            # confirmlabel = tkinter.Label()
+            if newEnemy_damage <= 0 or newEnemy_damage > 10:
+                tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! range: 1-10')
+            else:
+                enemy.damage = newEnemy_damage
         except ValueError:
-            pass # needs label
+            tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedamageb = tkinter.Button(settingwindow, text="Set Damage", command= updatedEnemamage)
     updatedamageb.place(x=300,y= 390)
         
