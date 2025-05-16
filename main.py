@@ -2,11 +2,7 @@ import tkinter
 from tkinter import ttk
 import tkinter.messagebox
 import pickle
-
 saveloc = "Data/game_data.dat"
-# ENEMY RNG TABLE DEFAULTS: 50
-# For attack: This will be default when nothing is needed
-# When below half health: it will heal if RNG rolls below selected RNG value, will attack if above, which means higher RNG = harder fight. (100 would mean 100% chance, 0 would mean 0%)
 def loadData():
     try:
         with open(saveloc, 'rb') as file:
@@ -24,6 +20,12 @@ def loadData():
         "Enemrng" : 50
         }
     
+gamedata = loadData()
+
+# ENEMY RNG TABLE DEFAULTS: 50
+# For attack: This will be default when nothing is needed
+# When below half health: it will heal if RNG rolls below selected RNG value, will attack if above, which means higher RNG = harder fight. (100 would mean 100% chance, 0 would mean 0%)
+
 
 #### window creation start ####
 window = tkinter.Tk()
@@ -52,7 +54,7 @@ class Enemparams():
 
 
 #### default values, should be written differently using saved settings once that's implemented ####
-player = Playerparams(100, 5, 'None')
+player = Playerparams(gamedata['Playerhealth'], 5, 'None')
 enemy = Enemparams(100, 5, 50, 'None')
 
 
@@ -296,6 +298,7 @@ def savedata():
 
 
 
-loadData()
+
+
 
 window.mainloop()
