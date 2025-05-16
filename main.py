@@ -66,7 +66,8 @@ def settingspressed():
     health_entry.place(x=160, y=150)
     playerlabel = tkinter.Label(settingwindow, text="Player", font=('Arial', 25))
     playerlabel.place(x=160, y= 100)
-    
+    health_entry.insert(0, str(player.health))
+
     def update_health():
         try:
             new_health = int(health_entry.get())
@@ -112,7 +113,8 @@ def settingspressed():
     damagelabel.place(x=50, y= 200)
     damage_entry = tkinter.Entry(settingwindow)
     damage_entry.place(x=160, y=200)
-    
+    damage_entry.insert(0, str(player.damage))
+
     def updatedamage():
         try:
             new_damage = int(damage_entry.get())
@@ -137,6 +139,7 @@ def settingspressed():
     healthEnemy_label.place(x=50, y=340)
     healthEnemy_entry = tkinter.Entry(settingwindow)
     healthEnemy_entry.place(x=160, y=340)
+    healthEnemy_entry.insert(0, str(enemy.health))
     def updateEnem_health():
         try:
             new_healthEnemy = int(healthEnemy_entry.get())
@@ -146,8 +149,8 @@ def settingspressed():
                 enemy.health = new_healthEnemy
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
-    updatehealthb = tkinter.Button(settingwindow, text="Set Health", command=updateEnem_health)
-    updatehealthb.place(x=300, y=339)
+    updatehealthenemb = tkinter.Button(settingwindow, text="Set Health", command=updateEnem_health)
+    updatehealthenemb.place(x=300, y=339)
 
     #### damage setting handler ####
 
@@ -155,7 +158,7 @@ def settingspressed():
     damageEnemylabel.place(x=50, y= 390)
     damageEnemy_entry = tkinter.Entry(settingwindow)
     damageEnemy_entry.place(x=160, y= 390)
-    
+    damageEnemy_entry.insert(0, str(enemy.damage))
     def updatedEnemamage():
         try:
             newEnemy_damage = int(damageEnemy_entry.get())
@@ -167,6 +170,46 @@ def settingspressed():
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedamageb = tkinter.Button(settingwindow, text="Set Damage", command= updatedEnemamage)
     updatedamageb.place(x=300,y= 390)
+ 
+ #### geeks4geeks ####
+    
+    def showEnem():
+        selectedEnem_weapon = cbEnem.get()
+        enemy.weapon = selectedEnem_weapon 
+        lblEnem.config(text=f"Weapon set to: {selectedEnem_weapon}")  
+        print(enemy.weapon)
+    
+    WeaponSelectEnemy = ["None", "Sword", "Gun"]
+
+
+    cbEnem = ttk.Combobox(settingwindow, values=WeaponSelectEnemy)
+    cbEnem.set(f"{enemy.weapon}")
+    cbEnem.place(x=151, y=440)
+    confirmEnemweap = tkinter.Button(settingwindow, text="Set Weapon", command=showEnem)
+    confirmEnemweap.place(x=300, y=440)
+    lblEnem = tkinter.Label(settingwindow, text="")
+    lblEnem.place(x=390, y=440)
+    weaponEnemlabl = tkinter.Label(settingwindow, text= "Enemy Weapon:")
+    weaponEnemlabl.place(x=50, y = 440)
+    
+    #### geeks4geeks ####
+
+    rngEnemylabel = tkinter.Label(settingwindow, text = "Enemy RNG:")
+    rngEnemylabel.place(x=50, y= 490)
+    rngEnemy_entry = tkinter.Entry(settingwindow)
+    rngEnemy_entry.place(x=160, y=490)
+    rngEnemy_entry.insert(0, str(enemy.rng))
+    def rngEnem():
+        try:
+            newEnemy_rng = int(rngEnemy_entry.get())
+            if newEnemy_rng <= 0 or newEnemy_rng > 100:
+                tkinter.messagebox.showerror('Out of range', 'You inputted an out of range number! range: 1-100')
+            else:
+                enemy.rng = newEnemy_rng
+        except ValueError:
+            tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
+    updatedrngb = tkinter.Button(settingwindow, text="Set RNG", command= rngEnem)
+    updatedrngb.place(x=300,y= 490)
         
 #### UI buttons handling ####
 
