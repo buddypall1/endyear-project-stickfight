@@ -92,6 +92,16 @@ def settingspressed():
     settingwindow.resizable(0, 0)
     settingwindow.geometry("650x650")
     
+    playersprite = tkinter.PhotoImage(file = "Media\playerplaceholder.png")
+    playersprlabel = tkinter.Label(settingwindow, image=playersprite)
+    playersprlabel.place(x=420, y= 120)
+    playersprlabel.image = playersprite
+
+    Enemsprite = tkinter.PhotoImage(file = "Media\enemyplaceholder.png")
+    Enemsprlabel = tkinter.Label(settingwindow, image=Enemsprite)
+    Enemsprlabel.place(x=420, y= 300)
+    Enemsprlabel.image = Enemsprite
+
     def exitsett():
         settingwindow.destroy()
 
