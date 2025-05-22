@@ -2,6 +2,7 @@ import tkinter
 from tkinter import ttk
 import tkinter.messagebox
 import pickle
+from PIL import Image, ImageTk
 saveloc = "Data/game_data.dat"
 def loadData():
     try:
@@ -73,6 +74,7 @@ def exitpressed():
 def playpressed():
     global player, enemy
     playwindow = tkinter.Toplevel(window)
+    playwindow.resizable(0,0)
     def disable_event():
         pass
     playwindow.protocol("WM_DELETE_WINDOW", disable_event)
@@ -91,15 +93,15 @@ def settingspressed():
     settingwindow.title("Settings")
     settingwindow.resizable(0, 0)
     settingwindow.geometry("650x650")
-    
-    playersprite = tkinter.PhotoImage(file = "Media\playerplaceholder.png")
+    playersprite = tkinter.PhotoImage(file = "Media\playersprite.png")
     playersprlabel = tkinter.Label(settingwindow, image=playersprite)
-    playersprlabel.place(x=420, y= 120)
+    playersprlabel.place(x=440, y= 100)
     playersprlabel.image = playersprite
 
-    Enemsprite = tkinter.PhotoImage(file = "Media\enemyplaceholder.png")
+
+    Enemsprite = tkinter.PhotoImage(file = "Media\enemysprite.png")
     Enemsprlabel = tkinter.Label(settingwindow, image=Enemsprite)
-    Enemsprlabel.place(x=420, y= 300)
+    Enemsprlabel.place(x=440, y= 370)
     Enemsprlabel.image = Enemsprite
 
     def exitsett():
@@ -149,7 +151,7 @@ def settingspressed():
     confirmweap = tkinter.Button(settingwindow, text="Set Weapon", command=show)
     confirmweap.place(x=300, y=250)
     lbl = tkinter.Label(settingwindow, text="")
-    lbl.place(x=390, y=250)
+    lbl.place(x=151, y=280)
     weaponlabl = tkinter.Label(settingwindow, text= "Player Weapon:")
     weaponlabl.place(x=50, y = 250)
     
@@ -182,14 +184,14 @@ def settingspressed():
         #### ENEMY SETTINGS ####
         
     enemylabel = tkinter.Label(settingwindow, text="Enemy", font=('Arial', 25))
-    enemylabel.place(x=160, y= 290)
+    enemylabel.place(x=160, y= 340) #40
 
     #### health setting handler ####
 
     healthEnemy_label = tkinter.Label(settingwindow, text="Enemy Health:")
-    healthEnemy_label.place(x=50, y=340)
+    healthEnemy_label.place(x=50, y=390)
     healthEnemy_entry = tkinter.Entry(settingwindow)
-    healthEnemy_entry.place(x=160, y=340)
+    healthEnemy_entry.place(x=160, y=390)
     healthEnemy_entry.insert(0, str(enemy.health))
     def updateEnem_health():
         try:
@@ -202,14 +204,14 @@ def settingspressed():
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatehealthenemb = tkinter.Button(settingwindow, text="Set Health", command=updateEnem_health)
-    updatehealthenemb.place(x=300, y=339)
+    updatehealthenemb.place(x=300, y=389)
 
     #### damage setting handler ####
 
     damageEnemylabel = tkinter.Label(settingwindow, text = "Enemy Damage:")
-    damageEnemylabel.place(x=50, y= 390)
+    damageEnemylabel.place(x=50, y= 430)
     damageEnemy_entry = tkinter.Entry(settingwindow)
-    damageEnemy_entry.place(x=160, y= 390)
+    damageEnemy_entry.place(x=160, y= 430)
     damageEnemy_entry.insert(0, str(enemy.damage))
     
     def updatedEnemamage():
@@ -223,7 +225,7 @@ def settingspressed():
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedamageb = tkinter.Button(settingwindow, text="Set Damage", command= updatedEnemamage)
-    updatedamageb.place(x=300,y= 390)
+    updatedamageb.place(x=300,y= 429)
  
  #### geeks4geeks ####
     
@@ -238,20 +240,20 @@ def settingspressed():
 
     cbEnem = ttk.Combobox(settingwindow, values=WeaponSelectEnemy)
     cbEnem.set(f"{enemy.weapon}")
-    cbEnem.place(x=151, y=440)
+    cbEnem.place(x=151, y=470)
     confirmEnemweap = tkinter.Button(settingwindow, text="Set Weapon", command=showEnem)
-    confirmEnemweap.place(x=300, y=440)
+    confirmEnemweap.place(x=300, y=470)
     lblEnem = tkinter.Label(settingwindow, text="")
-    lblEnem.place(x=390, y=440)
+    lblEnem.place(x=151, y=495)
     weaponEnemlabl = tkinter.Label(settingwindow, text= "Enemy Weapon:")
-    weaponEnemlabl.place(x=50, y = 440)
+    weaponEnemlabl.place(x=50, y = 470)
     
     #### geeks4geeks ####
 
     rngEnemylabel = tkinter.Label(settingwindow, text = "Enemy RNG:")
-    rngEnemylabel.place(x=50, y= 490)
+    rngEnemylabel.place(x=50, y= 520)
     rngEnemy_entry = tkinter.Entry(settingwindow)
-    rngEnemy_entry.place(x=160, y=490)
+    rngEnemy_entry.place(x=160, y=520)
     rngEnemy_entry.insert(0, str(enemy.rng))
     def rngEnem():
         try:
@@ -264,7 +266,7 @@ def settingspressed():
         except ValueError:
             tkinter.messagebox.showerror('Non number value!', 'ERROR! You have entered a non number value.')
     updatedrngb = tkinter.Button(settingwindow, text="Set RNG", command= rngEnem)
-    updatedrngb.place(x=300,y= 490)
+    updatedrngb.place(x=300,y= 519)
         
 #### UI buttons handling ####
 
